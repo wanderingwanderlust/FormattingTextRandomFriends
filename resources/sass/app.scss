@@ -1,0 +1,35 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+
+#app {
+  h5 {
+    text-align: center;
+  }
+  .hello-background {
+
+    background-color: black;
+
+  }
+  .world-color {
+    color:white;
+  }
+
+  .friend-greeting {
+    text-align: center;
+    font-size: 36px;
+
+    :hover {
+      background-color: purple;
+    }
+  }
+
+
+
+}
