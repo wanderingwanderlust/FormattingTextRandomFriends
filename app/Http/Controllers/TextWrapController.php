@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 class TextWrapController extends Controller
@@ -12,43 +13,39 @@ class TextWrapController extends Controller
         $string_to_check = "";
         $saved_for_next_line = "";
 
-        for($i = 0; $i < count($word_in_file); $i++)
-        {
+        for ($i = 0; $i < count($word_in_file); $i++) {
             $find_a_paragraph_break = "/\.\s/";
             $find_a_paragraph_break_question = "/\?\"\s/";
             $find_a_paragraph_break_period = "/\.(.*)\"\s/";
-
-            if(preg_match($find_a_paragraph_break, $word_in_file[$i])) {
+            $replace_extra_quotes = "/\"\s/";
+            if (preg_match($find_a_paragraph_break, $word_in_file[$i])) {
                 $paragraph_break = explode(".", $word_in_file[$i]);
                 $string_to_check .= $paragraph_break[0] . "." . "<br/><br/>";
                 $saved_for_next_line .= $paragraph_break[1] . " ";
                 $eighty_line_string .= $string_to_check;
                 $string_to_check = "";
-            }elseif(preg_match($find_a_paragraph_break_question, $word_in_file[$i])) {
+            } elseif (preg_match($find_a_paragraph_break_question, $word_in_file[$i])) {
                 $paragraph_break = explode("?", $word_in_file[$i]);
                 $string_to_check .= $paragraph_break[0] . '?"' . "<br/><br/>";
-                $saved_for_next_line .= preg_replace("/\"\s/", "", $paragraph_break[1], 1) . " ";
+                $saved_for_next_line .= preg_replace($replace_extra_quotes, "", $paragraph_break[1], 1) . " ";
                 $eighty_line_string .= $string_to_check;
                 $string_to_check = "";
-            }elseif (preg_match($find_a_paragraph_break_period, $word_in_file[$i]))
-            {
+            } elseif (preg_match($find_a_paragraph_break_period, $word_in_file[$i])) {
                 $paragraph_break = explode(".", $word_in_file[$i]);
-                $string_to_check .= $paragraph_break[0] . '".' . "<br/><br/>";
-                $saved_for_next_line .= preg_replace("/\"\s/", "", $paragraph_break[1], 1) . " ";
+                $string_to_check .= $paragraph_break[0] . '."' . "<br/><br/>";
+                $saved_for_next_line .= preg_replace($replace_extra_quotes, "", $paragraph_break[1], 1) . " ";
                 $eighty_line_string .= $string_to_check;
                 $string_to_check = "";
-            } else{
-                if(!empty($saved_for_next_line))
-                {
-                    $string_to_check .= $saved_for_next_line.   $word_in_file[$i] . " ";
+            } else {
+                if (!empty($saved_for_next_line)) {
+                    $string_to_check .= $saved_for_next_line . $word_in_file[$i] . " ";
                     $saved_for_next_line = "";
-                }else {
+                } else {
                     $string_to_check .= $word_in_file[$i] . " ";
                 }
                 $characters_in_string = strlen($string_to_check);
-                if($characters_in_string >= 80)
-                {
-                    if($characters_in_string == 80) {
+                if ($characters_in_string >= 80) {
+                    if ($characters_in_string == 80) {
 
                         $eighty_line_string .= $string_to_check . "<br/>";
                         $string_to_check = "";
@@ -58,8 +55,7 @@ class TextWrapController extends Controller
                         $clean_array = array_filter($pieces);
                         $last_word = array_pop($clean_array);
 
-                        foreach($clean_array as $piece)
-                        {
+                        foreach ($clean_array as $piece) {
                             $eighty_line_string .= $piece . " ";
                         }
 
@@ -68,8 +64,7 @@ class TextWrapController extends Controller
                     }
                 }
             }
-
-            if($i == (count($word_in_file) -1)) {
+            if ($i == (count($word_in_file) - 1)) {
                 $eighty_line_string .= $string_to_check;
             }
         }
