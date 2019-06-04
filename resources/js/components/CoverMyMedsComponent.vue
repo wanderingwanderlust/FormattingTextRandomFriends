@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="friends-container">
-            <div v-for="friend in friendsArray">
+            <div v-for="friend in  randomFriends">
                 <div v-if="friend === 'Ray'">
                     <h3 class="friend-greeting" style="background-color:#80FFDD"> Hello <span style="color:red;">{{friend}}</span></h3>
                 </div>
@@ -25,22 +25,30 @@
 <script>
     export default {
         data() {
-            var friendsArray = ["Ray", "Oscar", "Gwen", "Bob", "Marie"];
+            const friendsArray = ["Ray", "Oscar", "Gwen", "Bob", "Marie"];
+            let randomFriends = this.randomizeFriends(friendsArray);
             return {
-                friendsArray
+                randomFriends
             }
         },
         mounted() {
             console.log('Cover My Meds.');
         },
         methods: {
-            greetFriends() {
-                friendsArray = ["Ray", "Oscar", "Gwen", "Bob", "Marie"];
-                return friendsArray;
-            },
-            randomizeFriends($friends)
+            randomizeFriends(friends)
             {
+                let currentIndex = 0
+                    , randomIndex = 0
+                    , temp = null
+                ;
 
+                for (currentIndex = friends.length - 1; currentIndex > 0; currentIndex -= 1) {
+                    randomIndex  = Math.floor(Math.random() * (currentIndex + 1));
+                    temp = friends[currentIndex];
+                    friends[currentIndex] = friends[randomIndex];
+                    friends[randomIndex] = temp
+                }
+                return friends;
             }
         }
     }

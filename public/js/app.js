@@ -1790,19 +1790,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var friendsArray = ["Ray", "Oscar", "Gwen", "Bob", "Marie"];
+    var randomFriends = this.randomizeFriends(friendsArray);
     return {
-      friendsArray: friendsArray
+      randomFriends: randomFriends
     };
   },
   mounted: function mounted() {
     console.log('Cover My Meds.');
   },
   methods: {
-    greetFriends: function greetFriends() {
-      friendsArray = ["Ray", "Oscar", "Gwen", "Bob", "Marie"];
-      return friendsArray;
-    },
-    randomizeFriends: function randomizeFriends($friends) {}
+    randomizeFriends: function randomizeFriends(friends) {
+      var currentIndex = 0,
+          randomIndex = 0,
+          temp = null;
+
+      for (currentIndex = friends.length - 1; currentIndex > 0; currentIndex -= 1) {
+        randomIndex = Math.floor(Math.random() * (currentIndex + 1));
+        temp = friends[currentIndex];
+        friends[currentIndex] = friends[randomIndex];
+        friends[randomIndex] = temp;
+      }
+
+      return friends;
+    }
   } //    Using Javascript, add a greeting for each of your friends to the page, each on their own line and centered.
   //     Friends: Ray, Oscar, Gwen, Bob, and Marie
   //     red, orange, green, blue, and magenta
@@ -37193,7 +37203,7 @@ var render = function() {
     _c(
       "div",
       { staticClass: "friends-container" },
-      _vm._l(_vm.friendsArray, function(friend) {
+      _vm._l(_vm.randomFriends, function(friend) {
         return _c("div", [
           friend === "Ray"
             ? _c("div", [
@@ -49629,15 +49639,14 @@ if (token) {
 /*!**********************************************************!*\
   !*** ./resources/js/components/CoverMyMedsComponent.vue ***!
   \**********************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CoverMyMedsComponent_vue_vue_type_template_id_6558acfe___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CoverMyMedsComponent.vue?vue&type=template&id=6558acfe& */ "./resources/js/components/CoverMyMedsComponent.vue?vue&type=template&id=6558acfe&");
 /* harmony import */ var _CoverMyMedsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CoverMyMedsComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/CoverMyMedsComponent.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _CoverMyMedsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _CoverMyMedsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -49667,7 +49676,7 @@ component.options.__file = "resources/js/components/CoverMyMedsComponent.vue"
 /*!***********************************************************************************!*\
   !*** ./resources/js/components/CoverMyMedsComponent.vue?vue&type=script&lang=js& ***!
   \***********************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
